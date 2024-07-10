@@ -14,10 +14,12 @@ app = web.Application()
 # Global
 counter = 0
 sidList = []
+downloadUrls = []
 
 async def emit_numbers():
+    print("function: emit_numbers") 
     global counter
-    while True:
+    while counter < 100:
         counter += 1
         print(f"Counter: {counter}") 
         print(sidList)
@@ -26,11 +28,21 @@ async def emit_numbers():
         await asyncio.sleep(1)
 
 @sio.event
-async def connect(sid, environ):
+async def addUrl(sid, text):
+    print("function: addUrl")
+    print(f"sid: {sid}")
+    print(f"text: {text}")
     sio.start_background_task(emit_numbers)
+    global downloadUrls
+    downloadUrls.append(text)
+    await sio.emit('updateUrls', downloadUrls)
+
+
+@sio.event
+async def connect(sid, environ):
     print(f"Client connected: {sid}")
     sidList.append(sid)
-    # TODO: もしかしていらないかも ー＞ await sio.emit('number', counter, room=sid)
+    await sio.emit('updateUrls', downloadUrls)
 
 @sio.event
 async def disconnect(sid):
