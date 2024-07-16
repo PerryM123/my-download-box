@@ -100,5 +100,12 @@ def download_file(url):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='127.0.0.1', port=5000, debug=True)
+    socketio.run(app, host='mydownloadbox.perry', port=443, debug=True, ssl_context=('server.crt', 'server.key'))
+    # socketio.run(app, host='192.168.1.8', port=5000, debug=True)
+    # socketio.run(app, host='mydownloadbox.perry', port=5000, debug=True)
+    # socketio.run(app, host='mydownloadbox.perry', port=5000, debug=True, ssl_context=('cert.pem', 'key.pem'))
+    
+
+
+
 
