@@ -101,7 +101,7 @@ def download_file(url):
 
 if __name__ == '__main__':
     # TODO: host名をenvから読み込むように修正必須
-    socketio.run(app, host='192.168.1.8', port=443, debug=True, ssl_context=('./certs/server.crt', './certs/server.key'))
+    socketio.run(app, host='192.168.1.8', port=3001, debug=True)
 
 
 
